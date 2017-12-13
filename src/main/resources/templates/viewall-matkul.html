@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+	integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+	integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+	integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+	crossorigin="anonymous"></link>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+<title>View All Mata Kuliah</title>
+</head>
+<body>
+	<div th:replace = "fragments/fragment :: header" ></div>
+		<br/>
+		<div class="container">
+			<div class="well"><h2>Daftar Semua Mata Kuliah</h2></div>
+			<hr/>
+		</div>
+	<div class="container">
+		<div>
+			<table class="table" id="myTable">
+				<thead>
+					<tr>
+						<th>Kode</th>
+						<th>Nama</th>
+						<th>Jumlah SKS</th>
+						<th>Deskripsi</th>
+						<th>Term</th>
+						<th>Update</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="matkul,iterationStatus: ${daftarMatkul}">
+						<td><a th:text="${matkul.kode_matkul}" th:href="'/matakuliah/view?kodeMataKuliah=' + ${matkul.kode_matkul}"></a></td>
+						<td th:text="${matkul.nama_matkul}"></td>
+						<td th:text="${matkul.jumlah_sks}"></td>
+						<td th:text="${matkul.deskripsi}"></td>
+						<td th:text="${matkul.term}"></td>
+						<td><a class="btn btn-info" th:href="'/matakuliah/update/' + ${matkul.kode_matkul}">Update</a></td>
+						<td><a class="btn btn-danger" th:href="'/matakuliah/delete?kodeMataKuliah=' + ${matkul.kode_matkul}">Delete</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<br/>
+		</div>
+	</div>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#myTable').DataTable();
+		});
+	</script>
+</body>
+</html>

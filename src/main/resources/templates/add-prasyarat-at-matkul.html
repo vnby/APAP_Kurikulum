@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org">
+<head>
+	 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
+     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"></link>
+<title>Tambah Prasyarat Mata Kuliah</title>
+</head>
+<body>
+	<div th:replace = "fragments/fragment :: header" ></div>
+		<br/>
+		<div class="container">
+			<div class="well"><h2>Tambah Prasyarat Mata Kuliah</h2></div>
+			<hr/>
+		</div>
+		<div class="container">
+		<form action="/matakuliah/addprasyarat" method="get">
+			<div th:unless="${kode_kurikulum} != null" class="form-group col-md-6">
+				<label for="kode_kurikulum">Nama Kurikulum</label><br/>
+				<select name="kode_kurikulum">
+				  <option th:each="kurikulum,iterationStatus: ${allkurikulum}" th:value="${kurikulum.kode_kurikulum}" th:text="${kurikulum.nama_kurikulum}">Nama Kurikulum</option>
+				</select>
+			</div>
+			<div th:if="${kode_kurikulum} != null" class="form-group col-md-6">
+				<label for="kode_kurikulum">Nama Kurikulum</label><br/>
+				<select name="kode_kurikulum" th:attr="disabled=${kode_kurikulum != null? 'true' : 'false'}">
+				  <option th:each="kurikulum,iterationStatus: ${allkurikulum}" th:value="${kurikulum.kode_kurikulum}" th:text="${kurikulum.nama_kurikulum}" th:selected="${kode_kurikulum} == ${kurikulum.kode_kurikulum} ? 'true' : 'false'">Nama Kurikulum</option>
+				</select>
+				<input type="hidden" name="kode_kurikulum" th:attr="value=${kode_kurikulum}" />
+			</div>
+			<div th:if="${kode_kurikulum} != null" class="form-group col-md-6">
+				<label for="kode_matkul">Nama Mata Kuliah</label><br/>
+				<select name="kode_matkul">
+				  <option th:each="matkul,iterationStatus: ${matkulAtKurikulum}" th:value="${matkul.kode_matkul}" th:text="${matkul.nama_matkul}">Nama Mata Kuliah</option>
+				</select>
+			</div>
+			<div th:if="${kode_kurikulum} != null" class="form-group col-md-6">
+				<label for="prasyarat">Nama Mata Kuliah Prasyarat</label><br/>
+				<select name="prasyarat">
+				  <option th:each="matkul,iterationStatus: ${matkulAtKurikulum}" th:value="${matkul.kode_matkul}" th:text="${matkul.nama_matkul}">Nama Mata Kuliah Prasyarat</option>
+				</select>
+			</div>
+			<div class="form-group col-md-6">
+				<button th:unless="${param.kode_kurikulum != null}" type="submit" class="btn btn-primary">Lanjut</button>
+				<button th:if="${param.kode_kurikulum != null}" type="submit" class="btn btn-success">Simpan</button>
+			</div>
+		</form>
+		</div>
+</body>
+</html>

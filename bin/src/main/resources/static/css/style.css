@@ -1,0 +1,40 @@
+html, body{
+	margin:0;
+	overflow-x: hidden;
+}
+
+#jumbotron{
+	background: url('../img/bg.jpg') no-repeat fixed left;
+	background-size: cover;
+	padding: 200px 0px 180px 0px;
+	height: 100vh;
+}
+#jumbotron h1{
+	color:#fff;
+}
+#jumbotron hr{
+	background-color:#fff;
+}
+#header{
+	background: url('../img/bg.jpg') no-repeat fixed left;
+	background-size: cover;
+	padding: 60px;
+}
+#header h1{
+	color: #fff;
+}
+#header a{
+	color:#fff;
+}
+#main-content{
+	padding: 50px;
+}
+.card{
+	padding: 10px;
+}
+.card-depth{
+	padding: 20px;
+}
+footer p{
+	text-align: center;
+}
