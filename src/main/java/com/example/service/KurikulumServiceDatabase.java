@@ -1,6 +1,5 @@
 package com.example.service;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,9 +97,21 @@ public class KurikulumServiceDatabase implements KurikulumService {
 	}
 
 	@Override
-	public Collection<SekretariatResponse> getAllAngkatan() {
-		log.info("CEK");
+	public SekretariatResponse getAllAngkatan() {
+		log.info("GET All Angkatan via REST");
 		return kurikulumDAO.getAllAngkatan();
+	}
+
+	@Override
+	public UniversitasResponse selectFakultas(String id_univ, String id_fakultas) {
+		log.info("REST - select fakultas with id_fakultas {}", id_fakultas);
+		return kurikulumDAO.selectFakultas(id_univ, id_fakultas);
+	}
+
+	@Override
+	public UniversitasResponse selectProdi(String id_univ, String id_fakultas, String id_prodi) {
+		log.info("REST - select prodi with id_prodi {}", id_prodi);
+		return kurikulumDAO.selectProdi(id_univ, id_fakultas, id_prodi);
 	}
 
 }

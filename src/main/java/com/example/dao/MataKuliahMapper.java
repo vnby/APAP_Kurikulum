@@ -22,15 +22,15 @@ public interface MataKuliahMapper
 	@Select("SELECT * FROM MATA_KULIAH")
 	List<MataKuliah> selectAllMataKuliah();
 	
-	@Insert("INSERT INTO MATA_KULIAH (kode_matkul, nama_matkul, jumlah_sks, deskripsi, term)"
-			+ "VALUES ('${kode_matkul}', '${nama_matkul}', '${jumlah_sks}', '${deskripsi}', '${term}')")
+	@Insert("INSERT INTO MATA_KULIAH (kode_matkul, nama_matkul, jumlah_sks, deskripsi, term, id_universitas, id_fakultas)"
+			+ "VALUES ('${kode_matkul}', '${nama_matkul}', '${jumlah_sks}', '${deskripsi}', '${term}', '${id_universitas}', '${id_fakultas}')")
 	void addMataKuliah(MataKuliah mataKuliah);
 	
 	@Update("update mata_kuliah set nama_matkul = '${nama_matkul}', jumlah_sks = '${jumlah_sks}', "
 			+ "term = '${term}', deskripsi = '${deskripsi}' where kode_matkul = '${kode_matkul}'")
 	void updateMataKuliah(MataKuliah mataKuliah);
 	
-	@Select("SELECT MK.id, MK.kode_matkul, MK.nama_matkul, MK.jumlah_sks, MK.deskripsi, MK.term, KM.is_wajib"
+	@Select("SELECT MK.id, MK.kode_matkul, MK.nama_matkul, MK.jumlah_sks, MK.deskripsi, MK.term, KM.is_wajib, MK.id_universitas, MK.id_fakultas"
 			+ " FROM KURIKULUM_MATAKULIAH KM JOIN MATA_KULIAH MK ON KM.kode_matkul = MK.kode_matkul WHERE "
 			+ " KM.kode_matkul=#{kodeMataKuliah} AND KM.kode_kurikulum = #{kodeKurikulum}")
 	List<MataKuliah> apiGetMataKuliah(@Param("kodeMataKuliah") String kodeMataKuliah, @Param("kodeKurikulum") String kodeKurikulum);

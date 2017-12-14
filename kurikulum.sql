@@ -34,6 +34,8 @@ CREATE TABLE MATA_KULIAH (
     jumlah_sks INT NOT NULL,
     deskripsi TEXT,
   	term TINYINT NOT NULL,
+  	id_universitas VARCHAR (5) NOT NULL,
+  	id_fakultas VARCHAR (5) NOT NULL,
     primary key (id),
     unique (kode_matkul)
 );
@@ -61,20 +63,20 @@ CREATE TABLE PRASYARAT_MATAKULIAH (
 
 INSERT INTO KURIKULUM (kode_kurikulum, nama_kurikulum, id_universitas, id_fakultas, id_prodi)
 VALUES ("CSUI2011", "Kurikulum Fasilkom 2011", "1", "1", "1"),
-("FTUI2012", "Kurikulum FT 2012", "1", "2", "2"),
-("FEUI2013", "Kurikulum FE 2013", "1", "3", "3");
+("FTUI2012", "Kurikulum FT 2012", "1", "2", "1"),
+("FEUI2013", "Kurikulum FE 2013", "1", "3", "1");
 
 
-INSERT INTO MATA_KULIAH (kode_matkul, nama_matkul, jumlah_sks, deskripsi, term)
-VALUES ("CSC001", "DDP 1", 4, "Mata kuliah ini mengajarkan Dasar-Dasar Pemrograman 1", 1), 
-("CSC002", "DDP 2", 4, "Mata kuliah ini mengajarkan Dasar-Dasar Pemrograman 2", 2),
-("CSC003", "SDA", 4, "Mata kuliah ini mengajarkan Struktur Dasar Algoritma", 3), 
-("ENG001", "GAMTEK", 4, "Mata kuliah ini mengajarkan Penggambaran Teknik", 1), 
-("ENG002", "Manajerial Industri", 4, "Mata kuliah ini mengajarkan Manajerial Industri", 2), 
-("ENG003", "K3L", 4, "Mata kuliah ini mengajarkan K3L", 3), 
-("FEB001", "Akuntansi Dasar", 4, "Mata kuliah ini mengajarkan Akuntansi Dasar", 1), 
-("FEB002", "Ekonomi Mikro", 4, "Mata kuliah ini mengajarkan Ekonomi Mikro", 2),
-("FEB003", "Akuntansi Lanjut", 4, "Mata kuliah ini mengajarkan Akuntansi Lanjut", 3);
+INSERT INTO MATA_KULIAH (kode_matkul, nama_matkul, jumlah_sks, deskripsi, term, id_universitas, id_fakultas)
+VALUES ("CSC001", "DDP 1", 4, "Mata kuliah ini mengajarkan Dasar-Dasar Pemrograman 1", 1, 1, 1), 
+("CSC002", "DDP 2", 4, "Mata kuliah ini mengajarkan Dasar-Dasar Pemrograman 2", 2, 1, 1),
+("CSC003", "SDA", 4, "Mata kuliah ini mengajarkan Struktur Dasar Algoritma", 3, 1, 1), 
+("ENG001", "GAMTEK", 4, "Mata kuliah ini mengajarkan Penggambaran Teknik", 1, 1, 2), 
+("ENG002", "Manajerial Industri", 4, "Mata kuliah ini mengajarkan Manajerial Industri", 2, 1, 2), 
+("ENG003", "K3L", 4, "Mata kuliah ini mengajarkan K3L", 3, 1, 2), 
+("FEB001", "Akuntansi Dasar", 4, "Mata kuliah ini mengajarkan Akuntansi Dasar", 1, 1, 3), 
+("FEB002", "Ekonomi Mikro", 4, "Mata kuliah ini mengajarkan Ekonomi Mikro", 2, 1, 3),
+("FEB003", "Akuntansi Lanjut", 4, "Mata kuliah ini mengajarkan Akuntansi Lanjut", 3,1 ,3);
 
 INSERT INTO KURIKULUM_MATAKULIAH (kode_kurikulum, kode_matkul, is_wajib) VALUES
 ("CSUI2011","CSC001", "1"), ("CSUI2011","CSC002", "1"),("CSUI2011","CSC003", "0"),
@@ -90,11 +92,11 @@ INSERT INTO PRASYARAT_MATAKULIAH(kode_kurikulum, kode_matkul, prasyarat) VALUES
 ("FEUI2013", "FEB003", "FEB002");
 
 INSERT INTO users(username,password,enabled, id_universitas, id_fakultas, id_prodi)
-VALUES ('admin','admin', true, '1', '1', '1'), 
-('user','user', true, '2', '2', '2'),
-('kepo','kepo', true, '3', '3', '3');
+VALUES ('fasilkom','fasilkom', true, '1', '1', '1'), 
+('teknik','teknik', true, '1', '2', '1'),
+('ekonomi','ekonomi', true, '1', '3', '1');
 
 INSERT INTO user_roles (username, role)
-VALUES ('user', 'ROLE_USER'), 
-('admin', 'ROLE_ADMIN'),
-('kepo', 'ROLE_KEPO');
+VALUES ('fasilkom', 'ROLE_KAPRODI'),
+('teknik', 'ROLE_KAPRODI'),
+('ekonomi', 'ROLE_KAPRODI');

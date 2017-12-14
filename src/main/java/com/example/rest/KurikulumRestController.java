@@ -31,13 +31,38 @@ public class KurikulumRestController
 		
 		
 		if (kurikulum != null) {
-			int jumlahSksWajib = kurikulumDAO.hitungSksWajib(kodeKurikulum);
-			int jumlahSksPilihan = kurikulumDAO.hitungSksPilihan(kodeKurikulum);
-			kurikulum.setJumlahSksWajib(jumlahSksWajib);
-			kurikulum.setJumlahSksPilihan(jumlahSksPilihan);
-			kurikulum.setJumlahSks(jumlahSksPilihan+jumlahSksWajib);
+			List<MataKuliah> matkul = kurikulum.getMatakuliah();
+			
+			if (matkul.size() != 0) {
+				int pilihan = 0;
+				int wajib = 0;
+				for (int i = 0; i < matkul.size();i++) {
+					if (matkul.get(i).getIs_wajib().equals("0")) {
+						pilihan++;
+					}
+					if (matkul.get(i).getIs_wajib().equals("1")) {
+						wajib++;
+					}
+				}
+				
+				int jumlahSksPilihan = 0;
+				int jumlahSksWajib = 0;
+				
+				if (pilihan > 0) {
+					jumlahSksPilihan = kurikulumDAO.hitungSksPilihan(kodeKurikulum);
+				}
+				if(wajib > 0) {
+					jumlahSksWajib = kurikulumDAO.hitungSksWajib(kodeKurikulum);
+				}
+				
+				kurikulum.setJumlahSksWajib(jumlahSksWajib);
+				kurikulum.setJumlahSksPilihan(jumlahSksPilihan);
+				kurikulum.setJumlahSks(jumlahSksPilihan+jumlahSksWajib);
+			}
+			
 			Response response = new Response("200", "success", kurikulum);
 			return response;
+			
 		} else {
 			ResponseError error = new ResponseError("404", "Kurikulum tidak ditemukan");
 			return error;
@@ -75,7 +100,13 @@ public class KurikulumRestController
 									@RequestParam(value = "kodeKurikulum", required = true) String kodeKurikulum) {
 		List<MataKuliah> prasyarat = matakuliahDAO.apiGetPrasyarat(kodeMataKuliah, kodeKurikulum);
 		
+		
 		if(prasyarat.size() != 0) {
+			for (int i = 0; i < prasyarat.size(); i++) {
+				String isWajib;
+				isWajib = matakuliahDAO.cekIsWajib(prasyarat.get(i).getKode_matkul());
+				prasyarat.get(i).setIs_wajib(isWajib);
+			}
 			Response response = new Response("200", "success", prasyarat);
 			return response;
 		} else {
@@ -89,9 +120,38 @@ public class KurikulumRestController
 		Kurikulum kurikulum = kurikulumDAO.selectKurikulum(kodeKurikulum);
 		
 		if(kurikulum != null) {
-			int jumlahSksWajib = kurikulumDAO.hitungSksWajib(kodeKurikulum);
-			int jumlahSksPilihan = kurikulumDAO.hitungSksPilihan(kodeKurikulum);
-			SyaratLulus syaratLulus = new SyaratLulus(kodeKurikulum, jumlahSksWajib+jumlahSksPilihan, jumlahSksWajib, jumlahSksPilihan);
+			List<MataKuliah> matkul = kurikulum.getMatakuliah();
+
+			int jumlahSksPilihan = 0;
+			int jumlahSksWajib = 0;
+			
+			if (matkul.size() != 0) {
+				int pilihan = 0;
+				int wajib = 0;
+				for (int i = 0; i < matkul.size();i++) {
+					if (matkul.get(i).getIs_wajib().equals("0")) {
+						pilihan++;
+					}
+					if (matkul.get(i).getIs_wajib().equals("1")) {
+						wajib++;
+					}
+				}
+				
+				if (pilihan > 0) {
+					jumlahSksPilihan = kurikulumDAO.hitungSksPilihan(kodeKurikulum);
+				}
+				if (wajib > 0) {
+					jumlahSksWajib = kurikulumDAO.hitungSksWajib(kodeKurikulum);
+				}
+				
+				kurikulum.setJumlahSksWajib(jumlahSksWajib);
+				kurikulum.setJumlahSksPilihan(jumlahSksPilihan);
+				kurikulum.setJumlahSks(jumlahSksPilihan+jumlahSksWajib);
+			}
+			
+			int jumlahSks = jumlahSksWajib + jumlahSksPilihan;
+			
+			SyaratLulus syaratLulus = new SyaratLulus(kodeKurikulum, jumlahSks, jumlahSksWajib, jumlahSksPilihan);
 			Response response = new Response("200", "success", syaratLulus);
 			
 			return response;

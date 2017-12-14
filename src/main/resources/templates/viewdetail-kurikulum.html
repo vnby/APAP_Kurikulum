@@ -24,21 +24,20 @@
 </head>
 <body>
 
-	<div th:replace = "fragments/fragment :: header" ></div>
-		<br/>
-		<div class="container">
-			<div class="well"><h2>Lihat Detail Kurikulum</h2></div>
-			<hr/>
+	<div th:replace="fragments/fragment :: header"></div>
+	<br />
+	<div class="container">
+		<div class="well">
+			<h2>Lihat Detail Kurikulum</h2>
 		</div>
+		<hr />
+	</div>
 
 	<div class="container">
 		<h1 th:text="${kurikulum.nama_kurikulum}"></h1>
 		<h5 th:text="'(' + ${kurikulum.kode_kurikulum} + ')'"></h5>
 		<p></p>
-		<a class="btn btn-info" th:href="'/kurikulum/update/' + ${kurikulum.kode_kurikulum}">Update</a>
-		<a class="btn btn-danger" th:href="'/kurikulum/delete?kodeKurikulum=' + ${kurikulum.kode_kurikulum}">Delete</a>
-		<br/>
-		<br/>
+		<br />
 		<div>
 			<table class="table" id="myTable">
 				<thead>
@@ -56,13 +55,21 @@
 						<td><a th:text="${matkul.kode_matkul}"
 							th:href="'/matakuliah/view?kodeMataKuliah=' + ${matkul.kode_matkul}"></a></td>
 						<td th:text="${matkul.nama_matkul}"></td>
-						<td th:text="${matkul.jumlah_sks}"></td>
+						<td class="text-center" th:text="${matkul.jumlah_sks}"></td>
 						<td th:text="${matkul.deskripsi}"></td>
-						<td th:text="${matkul.term}"></td>
-						<td th:text="${matkul.is_wajib} != '0' ? 'Ya' : 'Tidak'"></td>
+						<td class="text-center" th:text="${matkul.term}"></td>
+						<td class="text-center"
+							th:text="${matkul.is_wajib} != '0' ? 'Ya' : 'Tidak'"></td>
 					</tr>
 				</tbody>
 			</table>
+		</div>
+		<br/>
+		<div class="text-right">
+			<a class="btn btn-info"
+				th:href="'/kurikulum/update/' + ${kurikulum.kode_kurikulum}">Update</a>
+			<a class="btn btn-danger"
+				th:href="'/kurikulum/delete?kodeKurikulum=' + ${kurikulum.kode_kurikulum}">Delete</a>
 		</div>
 	</div>
 	<script type="text/javascript"

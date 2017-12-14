@@ -34,5 +34,8 @@ public class UniversitasResponse extends BaseResponse<UniversitasResponse.Univer
 		
 		@JsonProperty("prodiList")
 		List<Prodi> prodiList;
+		
+		@JsonProperty("prodi")
+		Prodi prodi;
 	}
 }

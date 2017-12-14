@@ -1,12 +1,10 @@
 package com.example.service;
 
-import java.util.Collection;
 import java.util.List;
 
 import com.example.model.Kurikulum;
 import com.example.model.KurikulumMatkul;
 import com.example.model.SekretariatResponse;
-import com.example.model.Universitas;
 import com.example.model.UniversitasResponse;
 import com.example.model.User;
 
@@ -36,5 +34,9 @@ public interface KurikulumService
 	
 	User getUserInfo(String username);
 	
-	Collection<SekretariatResponse> getAllAngkatan();
+	SekretariatResponse getAllAngkatan();
+	
+	UniversitasResponse selectFakultas (String id_univ, String id_fakultas);
+	
+	UniversitasResponse selectProdi (String id_univ, String id_fakultas, String id_prodi);
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.example.model.AngkatanAktif;
 import com.example.model.Kurikulum;
 import com.example.model.KurikulumMatkul;
 import com.example.model.MataKuliah;
@@ -35,8 +36,8 @@ public class KurikulumController {
 	@RequestMapping("/kurikulum/add")
 	public String addKurikulum(Model model) {
 		Kurikulum kurikulum = new Kurikulum();
-		
-		//System.out.println(kurikulumDAO.getAllAngkatan());
+
+		// System.out.println(kurikulumDAO.selectFakultas("1", "1"));
 
 		model.addAttribute("kurikulum", kurikulum);
 
@@ -81,6 +82,7 @@ public class KurikulumController {
 		List<Kurikulum> allKurikulum = kurikulumDAO.selectAllKurikulum();
 		List<Kurikulum> filteredKurikulum = new ArrayList<Kurikulum>();
 		List<MataKuliah> allMatkul = matakuliahDAO.selectAllMataKuliah();
+		List<MataKuliah> filteredMatkul = new ArrayList<MataKuliah>();
 
 		for (int i = 0; i < allKurikulum.size(); i++)
 			if (allKurikulum.get(i).getId_universitas().equals(id_universitas)
@@ -88,9 +90,14 @@ public class KurikulumController {
 					&& allKurikulum.get(i).getId_prodi().equals(id_prodi))
 				filteredKurikulum.add(allKurikulum.get(i));
 
+		for (int i = 0; i < allMatkul.size(); i++)
+			if (allMatkul.get(i).getId_universitas().equals(id_universitas)
+					&& allMatkul.get(i).getId_fakultas().equals(id_fakultas))
+				filteredMatkul.add(allMatkul.get(i));
+
 		model.addAttribute("kurikulummatkul", kurikulummatkul);
 		model.addAttribute("allkurikulum", filteredKurikulum);
-		model.addAttribute("allmatkul", allMatkul);
+		model.addAttribute("allmatkul", filteredMatkul);
 
 		return "add-matkul-at-kurikulum";
 	}
@@ -218,10 +225,28 @@ public class KurikulumController {
 
 	@RequestMapping(value = "/matakuliah/add", method = RequestMethod.POST)
 	public RedirectView addSubmit(Model model, @ModelAttribute MataKuliah mataKuliah) {
-		matakuliahDAO.addMataKuliah(mataKuliah);
+		// get user info
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName();
+		User user = kurikulumDAO.getUserInfo(username);
+		String id_universitas = user.getId_universitas();
+		String id_fakultas = user.getId_fakultas();
+
+		MataKuliah temp = mataKuliah;
+		temp.setId_universitas(id_universitas);
+		temp.setId_fakultas(id_fakultas);
+
+		matakuliahDAO.addMataKuliah(temp);
 
 		List<MataKuliah> daftarMatkul = matakuliahDAO.selectAllMataKuliah();
-		model.addAttribute("daftarMatkul", daftarMatkul);
+		List<MataKuliah> matkulFiltered = new ArrayList<MataKuliah>();
+
+		for (int i = 0; i < daftarMatkul.size(); i++)
+			if (daftarMatkul.get(i).getId_universitas().equals(id_universitas)
+					&& daftarMatkul.get(i).getId_fakultas().equals(id_fakultas))
+				matkulFiltered.add(daftarMatkul.get(i));
+
+		model.addAttribute("daftarMatkul", matkulFiltered);
 
 		return new RedirectView("/matakuliah/viewall");
 	}
@@ -254,9 +279,22 @@ public class KurikulumController {
 
 	@RequestMapping("/matakuliah/viewall")
 	public String viewAllMatKul(Model model) {
-		List<MataKuliah> daftarMatkul = matakuliahDAO.selectAllMataKuliah();
+		// get user info
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName();
+		User user = kurikulumDAO.getUserInfo(username);
+		String id_universitas = user.getId_universitas();
+		String id_fakultas = user.getId_fakultas();
 
-		model.addAttribute("daftarMatkul", daftarMatkul);
+		List<MataKuliah> allMatkul = matakuliahDAO.selectAllMataKuliah();
+		List<MataKuliah> filteredMatkul = new ArrayList<MataKuliah>();
+
+		for (int i = 0; i < allMatkul.size(); i++)
+			if (allMatkul.get(i).getId_universitas().equals(id_universitas)
+					&& allMatkul.get(i).getId_fakultas().equals(id_fakultas))
+				filteredMatkul.add(allMatkul.get(i));
+
+		model.addAttribute("daftarMatkul", filteredMatkul);
 
 		return "viewall-matkul";
 	}
@@ -299,7 +337,38 @@ public class KurikulumController {
 	}
 
 	@RequestMapping("/angkatanaktif")
-	public String viewAngAktif() {
+	public String viewAngAktif(Model model) {
+		// get user info
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName();
+		User user = kurikulumDAO.getUserInfo(username);
+		String id_universitas = user.getId_universitas();
+		String id_fakultas = user.getId_fakultas();
+		String id_prodi = user.getId_prodi();
+		
+		String namaUniversitas = kurikulumDAO.selectUniversitas(id_universitas).getResult().getUniversitas().getNama_univ();
+		String namaFakultas = kurikulumDAO.selectFakultas(id_universitas, id_fakultas).getResult().getFakultas().getNama_fakultas();
+		String namaProdi = kurikulumDAO.selectProdi(id_universitas, id_fakultas, id_prodi).getResult().getProdi().getNama_prodi();
+		
+		model.addAttribute("namaUniversitas", namaUniversitas);
+		model.addAttribute("namaFakultas", namaFakultas);
+		model.addAttribute("namaProdi", namaProdi);
+
+		List<AngkatanAktif> angkatanAktif = kurikulumDAO.getAllAngkatan().getAngkatanAktif();
+		List<AngkatanAktif> modifiedAngkatanAktif = new ArrayList<AngkatanAktif>();
+		
+		//change kode jd nama
+		for(int i = 0; i < angkatanAktif.size(); i++) {
+			String kodeKurikulum = angkatanAktif.get(i).getKode_kurikulum();
+			String namaKurikulum = kurikulumDAO.selectKurikulum(kodeKurikulum).getNama_kurikulum();
+			angkatanAktif.get(i).setKode_kurikulum(namaKurikulum);
+			
+			if(angkatanAktif.get(i).getId_universitas().equals(id_universitas) &&
+					angkatanAktif.get(i).getId_fakultas().equals(id_fakultas))
+				modifiedAngkatanAktif.add(angkatanAktif.get(i));
+		}
+
+		model.addAttribute("angkatanAktif", modifiedAngkatanAktif);
 		return "view-angkatanaktif";
 	}
 

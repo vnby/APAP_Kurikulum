@@ -16,4 +16,6 @@ public class MataKuliah
 	private String deskripsi;
 	private String term;
 	private String is_wajib;
+	private String id_universitas;
+	private String id_fakultas;
 }

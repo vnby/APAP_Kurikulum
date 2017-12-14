@@ -1,8 +1,5 @@
 package com.example.dao;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.model.SekretariatResponse;
@@ -12,5 +9,7 @@ import com.example.model.UniversitasResponse;
 public interface KurikulumDAO {
 	UniversitasResponse selectUniversitas(String id_univ);
 	UniversitasResponse selectAllUniversitas();
-	Collection<SekretariatResponse> getAllAngkatan();
+	SekretariatResponse getAllAngkatan();
+	UniversitasResponse selectFakultas(String id_univ, String id_fakultas);
+	UniversitasResponse selectProdi(String id_univ, String id_fakultas, String id_prodi);
 }

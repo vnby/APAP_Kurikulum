@@ -23,12 +23,14 @@
 <title>View All Mata Kuliah</title>
 </head>
 <body>
-	<div th:replace = "fragments/fragment :: header" ></div>
-		<br/>
-		<div class="container">
-			<div class="well"><h2>Daftar Semua Mata Kuliah</h2></div>
-			<hr/>
+	<div th:replace="fragments/fragment :: header"></div>
+	<br />
+	<div class="container">
+		<div class="well">
+			<h2>Daftar Semua Mata Kuliah</h2>
 		</div>
+		<hr />
+	</div>
 	<div class="container">
 		<div>
 			<table class="table" id="myTable">
@@ -45,19 +47,30 @@
 				</thead>
 				<tbody>
 					<tr th:each="matkul,iterationStatus: ${daftarMatkul}">
-						<td><a th:text="${matkul.kode_matkul}" th:href="'/matakuliah/view?kodeMataKuliah=' + ${matkul.kode_matkul}"></a></td>
+						<td class="text-center"><a th:text="${matkul.kode_matkul}"
+							th:href="'/matakuliah/view?kodeMataKuliah=' + ${matkul.kode_matkul}"></a></td>
 						<td th:text="${matkul.nama_matkul}"></td>
-						<td th:text="${matkul.jumlah_sks}"></td>
+						<td class="text-center" th:text="${matkul.jumlah_sks}"></td>
 						<td th:text="${matkul.deskripsi}"></td>
-						<td th:text="${matkul.term}"></td>
-						<td><a class="btn btn-info" th:href="'/matakuliah/update/' + ${matkul.kode_matkul}">Update</a></td>
-						<td><a class="btn btn-danger" th:href="'/matakuliah/delete?kodeMataKuliah=' + ${matkul.kode_matkul}">Delete</a></td>
+						<td class="text-center" th:text="${matkul.term}"></td>
+						<td><a class="btn btn-info"
+							th:href="'/matakuliah/update/' + ${matkul.kode_matkul}">Update</a></td>
+						<td><a class="btn btn-danger"
+							th:href="'/matakuliah/delete?kodeMataKuliah=' + ${matkul.kode_matkul}">Delete</a></td>
 					</tr>
 				</tbody>
 			</table>
-			<br/>
+			<br />
 		</div>
+		<br/>
+		<div class="text-right">
+			<a class="btn btn-primary" th:href="'/matakuliah/add'">Tambah
+				Mata Kuliah</a>
+		</div>
+		<br/>
+		<hr/>
 	</div>
+
 	<script type="text/javascript"
 		src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script>

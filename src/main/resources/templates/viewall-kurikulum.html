@@ -47,9 +47,9 @@
 					<tr th:each="kurikulum,iterationStatus: ${allKurikulum}">
 						<td><a th:text="${kurikulum.kode_kurikulum}" th:href="'/kurikulum/view?kodeKurikulum=' + ${kurikulum.kode_kurikulum}"></a></td>
 						<td th:text="${kurikulum.nama_kurikulum}"></td>
-						<td th:text="${kurikulum.jumlahSks}"></td>
-						<td th:text="${kurikulum.jumlahSksWajib}"></td>
-						<td th:text="${kurikulum.jumlahSksPilihan}"></td>
+						<td class="text-center" th:text="${kurikulum.jumlahSks}"></td>
+						<td class="text-center" th:text="${kurikulum.jumlahSksWajib}"></td>
+						<td class="text-center" th:text="${kurikulum.jumlahSksPilihan}"></td>
 						<td><a class="btn btn-info" th:href="'/kurikulum/update/' + ${kurikulum.kode_kurikulum}">Update</a></td>
 						<td><a class="btn btn-danger" th:href="'/kurikulum/delete?kodeKurikulum=' + ${kurikulum.kode_kurikulum}">Delete</a></td>
 					</tr>
@@ -57,6 +57,11 @@
 			</table>
 		</div>
 		<div></div>
+		<br/>
+		<div class="text-right">
+			<a class="btn btn-primary" th:href="'/kurikulum/add'">Tambah Kurikulum</a>
+		</div>
+		<br/>
 	</div>
 	<script type="text/javascript"
 		src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
