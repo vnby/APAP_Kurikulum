@@ -35,7 +35,7 @@ public interface MataKuliahMapper
 			+ " KM.kode_matkul=#{kodeMataKuliah} AND KM.kode_kurikulum = #{kodeKurikulum}")
 	List<MataKuliah> apiGetMataKuliah(@Param("kodeMataKuliah") String kodeMataKuliah, @Param("kodeKurikulum") String kodeKurikulum);
 	
-	@Select("SELECT MK.id, MK.kode_matkul, MK.nama_matkul, MK.jumlah_sks, MK.deskripsi, MK.term FROM "
+	@Select("SELECT MK.id, MK.kode_matkul, MK.nama_matkul, MK.jumlah_sks, MK.deskripsi, MK.term, MK.id_universitas, MK.id_fakultas FROM "
 			+ "PRASYARAT_MATAKULIAH PM JOIN MATA_KULIAH MK ON PM.prasyarat = MK.kode_matkul WHERE "
 			+ "PM.kode_matkul=#{kodeMataKuliah} AND PM.kode_kurikulum=#{kodeKurikulum}")
 	List<MataKuliah> apiGetPrasyarat(@Param("kodeMataKuliah") String kodeMataKuliah, @Param("kodeKurikulum") String kodeKurikulum);
@@ -52,4 +52,7 @@ public interface MataKuliahMapper
 	
 	@Select("SELECT prasyarat FROM prasyarat_matakuliah WHERE kode_matkul = #{kodeMataKuliah}")
 	List<String> getPrasyarat(String kodeMataKuliah);
+	
+	@Select("SELECT nama_kurikulum FROM kurikulum k join kurikulum_matakuliah km ON k.kode_kurikulum = km.kode_kurikulum WHERE km.kode_matkul = #{kodeMataKuliah}")
+	List<String> getKurikulumYangMenggunakan(String kodeMataKuliah);
 }

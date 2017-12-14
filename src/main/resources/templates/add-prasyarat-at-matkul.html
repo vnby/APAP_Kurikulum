@@ -19,26 +19,26 @@
 		<form action="/matakuliah/addprasyarat" method="get">
 			<div th:unless="${kode_kurikulum} != null" class="form-group col-md-6">
 				<label for="kode_kurikulum">Nama Kurikulum</label><br/>
-				<select name="kode_kurikulum">
+				<select class="custom-select" name="kode_kurikulum">
 				  <option th:each="kurikulum,iterationStatus: ${allkurikulum}" th:value="${kurikulum.kode_kurikulum}" th:text="${kurikulum.nama_kurikulum}">Nama Kurikulum</option>
 				</select>
 			</div>
 			<div th:if="${kode_kurikulum} != null" class="form-group col-md-6">
 				<label for="kode_kurikulum">Nama Kurikulum</label><br/>
-				<select name="kode_kurikulum" th:attr="disabled=${kode_kurikulum != null? 'true' : 'false'}">
+				<select class="custom-select" name="kode_kurikulum" th:attr="disabled=${kode_kurikulum != null? 'true' : 'false'}">
 				  <option th:each="kurikulum,iterationStatus: ${allkurikulum}" th:value="${kurikulum.kode_kurikulum}" th:text="${kurikulum.nama_kurikulum}" th:selected="${kode_kurikulum} == ${kurikulum.kode_kurikulum} ? 'true' : 'false'">Nama Kurikulum</option>
 				</select>
 				<input type="hidden" name="kode_kurikulum" th:attr="value=${kode_kurikulum}" />
 			</div>
 			<div th:if="${kode_kurikulum} != null" class="form-group col-md-6">
 				<label for="kode_matkul">Nama Mata Kuliah</label><br/>
-				<select name="kode_matkul">
+				<select class="custom-select" name="kode_matkul">
 				  <option th:each="matkul,iterationStatus: ${matkulAtKurikulum}" th:value="${matkul.kode_matkul}" th:text="${matkul.nama_matkul}">Nama Mata Kuliah</option>
 				</select>
 			</div>
 			<div th:if="${kode_kurikulum} != null" class="form-group col-md-6">
 				<label for="prasyarat">Nama Mata Kuliah Prasyarat</label><br/>
-				<select name="prasyarat">
+				<select class="custom-select" name="prasyarat">
 				  <option th:each="matkul,iterationStatus: ${matkulAtKurikulum}" th:value="${matkul.kode_matkul}" th:text="${matkul.nama_matkul}">Nama Mata Kuliah Prasyarat</option>
 				</select>
 			</div>

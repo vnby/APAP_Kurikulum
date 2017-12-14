@@ -37,8 +37,6 @@ public class KurikulumController {
 	public String addKurikulum(Model model) {
 		Kurikulum kurikulum = new Kurikulum();
 
-		// System.out.println(kurikulumDAO.selectFakultas("1", "1"));
-
 		model.addAttribute("kurikulum", kurikulum);
 
 		return "add-kurikulum";
@@ -306,7 +304,7 @@ public class KurikulumController {
 		if (mataKuliah != null) {
 			String prasyarat = "";
 			List<String> listprasyarat = matakuliahDAO.getPrasyarat(kodeMataKuliah);
-
+			
 			if (listprasyarat.size() == 0)
 				prasyarat += "Tidak ada prasyarat";
 			else {
@@ -316,6 +314,19 @@ public class KurikulumController {
 						prasyarat += ", ";
 				}
 			}
+			
+			String kurikulumyangmenggunakan = "";
+			List<String> listkurikulumyangmenggunakan = matakuliahDAO.getKurikulumYangMenggunakan(kodeMataKuliah);
+			
+			if (listkurikulumyangmenggunakan.size() == 0)
+				kurikulumyangmenggunakan += "Tidak ada kurikulum yang menggunakan";
+			else {
+				for (int i = 0; i < listkurikulumyangmenggunakan.size(); i++) {
+					kurikulumyangmenggunakan += listkurikulumyangmenggunakan.get(i);
+					if (i + 1 < listkurikulumyangmenggunakan.size())
+						kurikulumyangmenggunakan += ", ";
+				}
+			}
 
 			String isWajib;
 			isWajib = matakuliahDAO.cekIsWajib(kodeMataKuliah);
@@ -323,6 +334,7 @@ public class KurikulumController {
 
 			model.addAttribute("mataKuliah", mataKuliah);
 			model.addAttribute("prasyarat", prasyarat);
+			model.addAttribute("kurikulum", kurikulumyangmenggunakan);
 			return "viewdetail-matkul";
 		} else {
 			model.addAttribute("kodeMataKuliah", kodeMataKuliah);
@@ -364,7 +376,8 @@ public class KurikulumController {
 			angkatanAktif.get(i).setKode_kurikulum(namaKurikulum);
 			
 			if(angkatanAktif.get(i).getId_universitas().equals(id_universitas) &&
-					angkatanAktif.get(i).getId_fakultas().equals(id_fakultas))
+					angkatanAktif.get(i).getId_fakultas().equals(id_fakultas) &&
+						angkatanAktif.get(i).getId_prodi().equals(id_prodi))
 				modifiedAngkatanAktif.add(angkatanAktif.get(i));
 		}
 

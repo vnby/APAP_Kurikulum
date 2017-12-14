@@ -1,5 +1,5 @@
-# Tugas_A-9
-Repository untuk Tugas Akhir Kelompok 9 ADPAP Kelas A
+# TA_C9
+Repository untuk Tugas Akhir Kelompok C9 ADPAP Kelas A
 
 API List:
 * [getKurikulum](#get-kurikulum)

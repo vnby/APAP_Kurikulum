@@ -59,6 +59,10 @@
 						<th>Prasyarat</th>
 						<td th:text="${prasyarat}"></td>
 					</tr>
+					<tr>
+						<th>Kurikulum</th>
+						<td th:text="${kurikulum}"></td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -68,6 +72,7 @@
 			<a class="btn btn-danger"
 				th:href="'/matakuliah/delete?kodeMataKuliah=' + ${mataKuliah.kode_matkul}">Delete</a>
 		</div>
+		<br/>
 	</div>
 </body>
 </html>

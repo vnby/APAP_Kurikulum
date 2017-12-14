@@ -80,4 +80,10 @@ public class MataKuliahServiceDatabase implements MataKuliahService
 		return mataKuliahMapper.getPrasyarat(kodeMataKuliah);
 	}
 
+	@Override
+	public List<String> getKurikulumYangMenggunakan(String kodeMataKuliah) {
+		log.info("SELECT nama_kurikulum FROM kurikulum k join kurikulum_matakuliah km ON k.kode_kurikulum = km.kode_kurikulum WHERE km.kode_matkul = {}", kodeMataKuliah);
+		return mataKuliahMapper.getKurikulumYangMenggunakan(kodeMataKuliah);
+	}
+
 }

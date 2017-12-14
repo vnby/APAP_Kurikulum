@@ -19,14 +19,14 @@
 		<form method="post" th:object="${kurikulummatkul}">
 			<div class="form-group col-md-6">
 				<label for="kode_kurikulum">Nama Kurikulum</label><br/>
-				<select name="kode_kurikulum">
+				<select class="custom-select" name="kode_kurikulum">
 				  <option th:each="kurikulum,iterationStatus: ${allkurikulum}" th:value="${kurikulum.kode_kurikulum}" th:text="${kurikulum.nama_kurikulum}">Nama Kurikulum</option>
 				</select>
 			</div>
 			<br/>
 			<div class="form-group col-md-6">
 				<label for="kode_matkul">Nama Mata Kuliah</label><br/>
-				<select name="kode_matkul">
+				<select class="custom-select" name="kode_matkul">
 				  <option th:each="matkul,iterationStatus: ${allmatkul}" th:value="${matkul.kode_matkul}" th:text="${matkul.nama_matkul}">Nama Mata Kuliah</option>
 				</select>
 			</div>

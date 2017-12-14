@@ -43,11 +43,9 @@
 					th:field="${mataKuliah.nama_matkul}" class="form-control" />
 			</div>
 			<div class="form-group col-md-6">
-				<!-- <label for="jumlah_sks">Jumlah SKS</label> 
-					<input type="text" name="jumlah_sks" th:value="${mataKuliah.jumlah_sks}" th:field="${mataKuliah.jumlah_sks}" class="form-control"/>  -->
-
-				<label for="jumlah_sks">Jumlah SKS</label> <select name="jumlah_sks"
-					th:field="${mataKuliah.jumlah_sks}" class="form-control"
+				<label for="jumlah_sks">Jumlah SKS</label> 
+				<select name="jumlah_sks"
+					th:field="${mataKuliah.jumlah_sks}" class="custom-select form-control"
 					id="jumlah_sks" th:value="${mataKuliah.jumlah_sks}">
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -61,14 +59,12 @@
 				<label for="deskripsi">Deskripsi</label>
 				<textarea type="text" name="deskripsi"
 					th:value="${mataKuliah.deskripsi}"
-					th:field="${mataKuliah.deskripsi}" class="form-control" />
+					th:field="${mataKuliah.deskripsi}" class="form-control"></textarea>
 			</div>
 			<div class="form-group col-md-6">
-				<!-- <label for="term">Term</label> 
-					<input type="text" name="term" th:value="${mataKuliah.term}" th:field="${mataKuliah.term}" class="form-control"/>  -->
-
-				<label for="term">Term</label> <select name="term"
-					th:field="${mataKuliah.term}" class="form-control" id="term"
+				<label for="term">Term</label> 
+				<select name="term"
+					th:field="${mataKuliah.term}" class="custom-select form-control" id="term"
 					th:value="${mataKuliah.term}">
 					<option value="1">1</option>
 					<option value="2">2</option>

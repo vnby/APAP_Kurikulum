@@ -26,4 +26,6 @@ public interface MataKuliahService
 	String cekIsWajib(String kodeMataKuliah);
 	
 	List<String> getPrasyarat(String kodeMataKuliah);
+	
+	List<String> getKurikulumYangMenggunakan(String kodeMataKuliah);
 }
