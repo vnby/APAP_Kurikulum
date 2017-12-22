@@ -20,6 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.disable()
 		.authorizeRequests()
 		.antMatchers("/api/**").permitAll()
+		.antMatchers("/portal/**").permitAll()
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()

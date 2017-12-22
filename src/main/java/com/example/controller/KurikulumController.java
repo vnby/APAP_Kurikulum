@@ -390,7 +390,6 @@ public class KurikulumController {
 			@RequestParam(value = "kode_matkul") Optional<String> kode_matkul,
 			@RequestParam(value = "prasyarat") Optional<String> prasyarat, Model model) {
 
-		// get user info
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		User user = kurikulumDAO.getUserInfo(username);

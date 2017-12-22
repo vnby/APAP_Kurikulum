@@ -19,11 +19,11 @@
 			<form method="post" th:object="${mataKuliah}">
 				<div class="form-group col-md-6">
 					<label for="kode_matkul">Kode Mata Kuliah</label> 
-					<input type="text" name="kode_matkul" th:value="${kode_matkul}" class="form-control" placeholder="Kode Mata Kuliah" maxlength="6"/> 
+					<input type="text" name="kode_matkul" th:value="${kode_matkul}" class="form-control" placeholder="Kode Mata Kuliah" maxlength="6" required="required" /> 
 				</div>
 				<div class="form-group col-md-6">
 					<label for="nama_matkul">Nama Mata Kuliah</label> 
-					<input type="text" name="nama_matkul" th:value="${nama_matkul}" class="form-control" placeholder="Nama Mata Kuliah"/> 
+					<input type="text" name="nama_matkul" th:value="${nama_matkul}" class="form-control" placeholder="Nama Mata Kuliah" required="required" /> 
 				</div>
 				<div class="form-group col-md-6">
 					<label for="jumlah_sks">Jumlah SKS</label>
@@ -38,7 +38,7 @@
 				</div>
 				<div class="form-group col-md-6">
 					<label for="deskripsi">Deskripsi</label> 
-					<textarea type="text" name="deskripsi" th:value="${deskripsi}" class="form-control" placeholder="Deskripsi"/> 
+					<textarea type="text" name="deskripsi" th:value="${deskripsi}" class="form-control" placeholder="Deskripsi" required="required" /> 
 				</div>
 				<div class="form-group col-md-6">
 					<label for="term">Term</label> 

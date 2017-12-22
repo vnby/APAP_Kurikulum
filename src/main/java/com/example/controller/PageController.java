@@ -14,4 +14,9 @@ public class PageController {
 	public String login () {
 		return "login";
 	}
+	
+	@RequestMapping("/portal")
+	public String portal() {
+		return "portal";
+	}
 }

@@ -27,7 +27,7 @@ public class KurikulumDAOImpl implements KurikulumDAO {
 
 	@Override
 	public SekretariatResponse getAllAngkatan() {
-		SekretariatResponse allAngkatanAktif = restTemplate.getForObject("http://localhost/APAP/index.json", SekretariatResponse.class);
+		SekretariatResponse allAngkatanAktif = restTemplate.getForObject("http://localhost:8080/api/getAngkatanKurikulumList", SekretariatResponse.class);
 		return allAngkatanAktif;
 	}
 
